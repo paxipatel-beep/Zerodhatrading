@@ -1,0 +1,2 @@
+# Zerodhatrading
+Trading bot
