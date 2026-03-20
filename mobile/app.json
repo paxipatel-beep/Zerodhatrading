@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "Zerodha Dashboard",
+    "slug": "zerodha-dashboard",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#131722"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.zerodha.dashboard"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#131722",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "package": "com.zerodha.dashboard",
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "scheme": "zerodha-dashboard"
+  }
+}
