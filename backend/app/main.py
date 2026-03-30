@@ -1,6 +1,9 @@
+from pathlib import Path
+
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import RedirectResponse
+from fastapi.responses import FileResponse, RedirectResponse
+from fastapi.staticfiles import StaticFiles
 
 from app.config import FRONTEND_URL
 from app.kite_client import (
@@ -9,6 +12,8 @@ from app.kite_client import (
     is_authenticated,
     require_kite,
 )
+
+STATIC_DIR = Path(__file__).resolve().parent.parent / "static"
 
 app = FastAPI(title="Zerodha Trading Dashboard API")
 
@@ -36,7 +41,7 @@ def callback(request_token: str = Query(...)):
         generate_session(request_token)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
-    return RedirectResponse(url=f"{FRONTEND_URL}?auth=success")
+    return RedirectResponse(url="/?auth=success")
 
 
 @app.get("/api/auth/status")
@@ -116,3 +121,13 @@ def margins():
 @app.get("/api/health")
 def health():
     return {"status": "ok", "authenticated": is_authenticated()}
+
+
+# ── Dashboard UI ────────────────────────────────────────────────────────
+
+@app.get("/")
+def serve_dashboard():
+    return FileResponse(STATIC_DIR / "index.html")
+
+
+app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
